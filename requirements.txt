@@ -1,0 +1,13 @@
+fastapi==0.115.0
+uvicorn==0.30.6
+pydantic==2.9.2
+langchain==1.2.13
+langchain-community==0.3.21
+langchain-openai==0.3.9
+langchain-text-splitters==0.3.8
+faiss-cpu==1.9.0
+openai==1.68.2
+boto3==1.37.23
+beautifulsoup4==4.12.3
+requests==2.32.3
+ 
