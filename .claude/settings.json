@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(if \\($env:OPENAI_API_KEY\\) { \"OPENAI_API_KEY is set\" } else { \"OPENAI_API_KEY is NOT set\" })",
+      "PowerShell(cd \"c:\\\\Users\\\\abhis\\\\OneDrive\\\\Documents\\\\GitHub\\\\chatbot\"; Start-Process -FilePath \"python\" -ArgumentList \"-m\", \"uvicorn\", \"main:app\", \"--host\", \"127.0.0.1\", \"--port\", \"8001\" -RedirectStandardOutput \"$env:TEMP\\\\chatbot_out.txt\" -RedirectStandardError \"$env:TEMP\\\\chatbot_err.txt\" -PassThru | Select-Object Id)",
+      "PowerShell(Start-Sleep -Seconds 3; Get-Content \"$env:TEMP\\\\chatbot_err.txt\" -ErrorAction SilentlyContinue)",
+      "PowerShell(Stop-Process -Id 5096 -Force -ErrorAction SilentlyContinue; Start-Sleep -Seconds 1; cd \"c:\\\\Users\\\\abhis\\\\OneDrive\\\\Documents\\\\GitHub\\\\chatbot\"; Start-Process -FilePath \"python\" -ArgumentList \"-m\", \"uvicorn\", \"main:app\", \"--host\", \"127.0.0.1\", \"--port\", \"8001\" -RedirectStandardOutput \"$env:TEMP\\\\chatbot_out.txt\" -RedirectStandardError \"$env:TEMP\\\\chatbot_err.txt\" -PassThru | Select-Object Id)",
+      "PowerShell(Write-Host \"=== GET /health ===\"; \\(Invoke-WebRequest -Uri \"http://127.0.0.1:8001/health\" -UseBasicParsing\\).Content | ConvertFrom-Json | ConvertTo-Json)",
+      "PowerShell(Write-Host \"=== POST /chat \\(missing field — should 422\\) ===\"; try { Invoke-WebRequest -Uri \"http://127.0.0.1:8001/chat\" -Method POST -ContentType \"application/json\" -Body '{}' -UseBasicParsing } catch { $_.Exception.Response.StatusCode.value__; $_.ErrorDetails.Message })"
+    ]
+  }
+}
